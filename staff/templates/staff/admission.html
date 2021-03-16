@@ -1,0 +1,7 @@
+<body>
+        <form action="{% url 'staff:add_student' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ studentform.as_ul }}
+        <input type="submit" value="Submit">
+        </form>
+</body>

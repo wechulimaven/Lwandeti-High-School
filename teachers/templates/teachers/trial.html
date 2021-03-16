@@ -1,0 +1,16 @@
+<body>
+        <form action="{% url 'teachers:register_student_subject' profile_attr.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ studentsubjectsform.as_ul }}
+        {% comment %} <input hidden name="student" value="{{student.id}}"> {% endcomment %}
+                                                                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                                                                    <label class="mdl-textfield__label">Subject Name</label>
+                                                                                    <select name="subject" class="mdl-textfield__input" id="subject">
+                                                                                        {% for subject in subjects %}
+                                                                                        <option class="form-control" value="{{subject.id}}">{{subject.subject_code}}: {{subject.subject_name}}</option>
+                                                                                        {% endfor %}
+                                                                                    </select>
+                                                                                </div>
+        <input type="submit" value="Submit">
+        </form>
+</body>

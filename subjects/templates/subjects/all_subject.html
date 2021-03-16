@@ -1,0 +1,91 @@
+{% extends "util/base.html" %}
+{% load static %}
+
+{% block content %}
+{% if user.is_superuser %}
+
+	<div class="page-wrapper">
+		<!-- start header -->
+		{% include 'includes/pageheader.html' %}
+		<!-- end header -->
+		<!-- start color quick setting -->
+		{% include 'includes/quicksettings.html' %}
+		<!-- end color quick setting -->
+		<!-- start page container -->
+		<div class="page-container">
+			<!-- start sidebar menu -->
+			{% include 'includes/sidebar.html' %}
+
+{% else %}
+
+		<div class="page-wrapper">
+		<!-- start header -->
+		{% include 'teacherutils/header.html' %}
+		<!-- end header -->
+		<!-- start color quick setting -->
+		{% include 'teacherutils/quicksettings.html' %}
+		<!-- end color quick setting -->
+		<!-- start page container -->
+		<div class="page-container">
+			<!-- start sidebar menu -->
+			{% include 'teacherutils/sidenav.html' %}
+{% endif %}
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <div class="page-bar">
+                    <div class="page-title-breadcrumb">
+                        <div class=" pull-left">
+                            <div class="page-title">All Subject List</div>
+                        </div>
+                        <ol class="breadcrumb page-breadcrumb pull-right">
+                            <li><i class="material-icons">home</i>&nbsp;<a class="parent-item"
+                                    href="#">Home</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                            </li>
+                            <li><a class="parent-item" href="">Subject</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                            </li>
+                            <li class="active">All Subject List</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card-box">
+                        <div class="card-head">
+                            <header>All Subject</header>
+                        </div>
+                        <div class="card-body ">
+                            <!-- start course list -->
+                            <div class="row">
+                                {% for subject in subjects %}
+                                <div class="col-lg-3 col-md-6 col-12 col-sm-6">
+                                    <div class="blogThumb">
+                                        <div class="thumb-center"><img style="width: 100%; height: 20%;" class="img-responsive" alt="user"
+                                                src="/subject{{subject.subject_photo.url}}"></div>
+                                        <div class="course-box">
+                                            <h4>{{subject.subject_class}}: {{subject.subject_name}}</h4>
+                                            <div class="text-muted"><span class="m-r-10">{{subject.subject_start}}</span>
+                                                <a class="course-likes m-l-10" href="#"><i
+                                                        class="material-icons">favorite</i> {{subject.subject_students_number}}</a>
+                                            </div>
+                                            <p><span><i class="material-icons">alarm</i> Duration: {{subject.subject_duration}}</span></p>
+                                            <p><span><i class="material-icons">person</i>HOD: <span class="text-center">{{subject.subject_hod}}</span> </span></p>
+                                            <p><span><i class="material-icons">school</i> Students: {{subject.subject_students_number}}+</span></p>
+                                            <a href="{% url 'subjects:subject_detail' subject.id %}" type="button"
+                                                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-info">Read
+                                                More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <!-- End course list -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page content -->
+        {% include 'util/chat_sidebar.html' %}
+    </div>
+    <!-- end page container -->
+</div>
+{% endblock %}

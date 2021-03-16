@@ -1,0 +1,203 @@
+{% extends 'teachersbase.html' %}
+{% load static %}
+
+{% block content %}
+{% if user.is_superuser %}
+
+	<div class="page-wrapper">
+		<!-- start header -->
+		{% include 'includes/sidebar.html' %}
+		<!-- end header -->
+		<!-- start color quick setting -->
+		{% include 'includes/quicksettings.html' %}
+		<!-- end color quick setting -->
+		<!-- start page container -->
+		<div class="page-container">
+			<!-- start sidebar menu -->
+			{% include 'includes/sidebar.html' %}
+
+{% else %}
+
+		<div class="page-wrapper">
+		<!-- start header -->
+		{% include 'teacherutils/header.html' %}
+		<!-- end header -->
+		<!-- start color quick setting -->
+		{% include 'teacherutils/quicksettings.html' %}
+		<!-- end color quick setting -->
+		<!-- start page container -->
+		<div class="page-container">
+			<!-- start sidebar menu -->
+			{% include 'teacherutils/sidenav.html' %}
+{% endif %}
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class=" pull-left">
+                        <div class="page-title">Edit Teachers Profile</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li>
+                            <i class="material-icons">home</i>
+                            &nbsp;
+                            <a class="parent-item" href="">Home</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                        </li>
+                        <li class="active">Edit Teachers Profile</li>
+                    </ol>
+                </div>
+                {% if messages %}
+                {% for  message in messages %}
+                <div class="alert alert-{{message.tags}}">
+                    {{message}}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <!-- start widget -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <form action="{% url 'teachers:edit_teachers_profile_attribute' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="card-box">
+                            <div class="card-head">
+                                <header>Edit Teachers Profile Form</header>
+                                <div id="panel-button" class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                    data-upgraded=",MaterialButton">
+                                    <i class="material-icons">more_vert</i>
+                                </div>
+                                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                    data-mdl-for="panel-button">
+                                    <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action
+                                    </li>
+                                    <li class="mdl-menu__item"><i class="material-icons">print</i>Another action
+                                    </li>
+                                    <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else
+                                        here</li>
+                                </ul>
+                            </div>
+                            <div class="card-body row">
+
+                                <div class="col-lg-6 p-t-20">
+                                    <div
+                                        class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                        {{ form.mobile_number }}
+                                        <label class="mdl-textfield__label">Mobile Number</label>
+                                    </div>
+                                </div>
+                                {% comment %} <div class="col-lg-4 p-t-20">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                        <label class="mdl-textfield__label">Department</label>
+                                        <select name="department" class="mdl-textfield__input" id="department">
+                                            {% for department in dept_qs  %}
+                                                <option class="mdl-menu__item form-control" value="{{department.id}}">{{department.dept_name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div> {% endcomment %}
+                                <div class="col-lg-4 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+                                            {{form.gender }}
+                                            <label for="gender" class="pull-right margin-0">
+                                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                            </label>
+                                            <label for="gender" class="mdl-textfield__label">Gender</label>
+                                            <ul data-mdl-for="gender"
+                                                class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                                <li class="mdl-menu__item" data-val="DE">Male</li>
+                                                <li class="mdl-menu__item" data-val="BY">Female</li>
+                                            </ul>
+                                        </div>
+                                </div>
+                                <div class="col-lg-4 p-t-20">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                        <label class="mdl-textfield__label">Department</label>
+                                        <select name="designation" class="mdl-textfield__input" id="designation">
+                                            {% for designation in designations  %}
+                                                <option class="mdl-menu__item form-control" value="{{designation.id}}">{{designation.desg_name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 p-t-20">
+                                        <div class="mdl-textfield mdl-js-textfield txt-full-width">
+                                            {{ form.educational_status  }}
+                                            <label class="mdl-textfield__label" for="text7">Educational Status</label>
+                                        </div>
+                                </div>
+                                {% comment %} <div class="col-lg-4 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+                                            {{ form.educational_status }}
+                                            <label for="gender" class="pull-right margin-0">
+                                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                            </label>
+                                            <label for="gender" class="mdl-textfield__label">Educational Status</label>
+                                            <ul data-mdl-for="gender"
+                                                class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                                <li class="mdl-menu__item" data-val="DE">Certificate</li>
+                                                <li class="mdl-menu__item" data-val="BY">Diploma</li>
+                                                <li class="mdl-menu__item" data-val="BY">Degree</li>
+                                                <li class="mdl-menu__item" data-val="BY">Masters Degree</li>
+                                                <li class="mdl-menu__item" data-val="BY">PHD</li>
+                                            </ul>
+                                        </div>
+                                </div> {% endcomment %}
+                                {% comment %} <div class="col-lg-4 p-t-20">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                            {{ form.email }}
+                                            <label class="mdl-textfield__label">Email</label>
+                                            <span class="mdl-textfield__error">Enter Valid Email Address!</span>
+                                        </div>
+                                </div> {% endcomment %}
+                                <div class="col-lg-12 p-t-20">
+                                        <div class="mdl-textfield mdl-js-textfield txt-full-width">
+                                            {{ form.address }}
+                                            <label class="mdl-textfield__label" for="text7">Home Address or Place</label>
+                                        </div>
+                                </div>
+                                <div class="col-lg-4 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                            {{ form.joined_date}}
+                                            <label class="mdl-textfield__label">Joined Date</label>
+                                        </div>
+                                </div>
+                                <div class="col-lg-4 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                            {{ form.dob }}
+                                            <label class="mdl-textfield__label">Birth Date</label>
+                                        </div>
+                                </div>
+                                <div class="col-lg-12 p-t-20">
+                                        <label class="control-label col-md-3">Upload Photo
+                                        </label>
+                                        <div class="col-md-12 dropzone">
+                                            {{form.profile_photo}}
+                                        </div>
+                                    </div>
+                                <div class="col-lg-12 p-t-20 text-center">
+                                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-primary">
+                                        Save <i class="material-icons">save</i>
+                                    </button>
+                                    <button type="reset"
+                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- end widget -->
+
+        </div>
+    </div>
+    <!-- end page content -->
+    <!-- start chat sidebar -->
+    {% comment %} {% include 'includes/applicationsettings.html' %} {% endcomment %}
+    <!-- end chat sidebar -->
+</div>
+
+{% endblock %}

@@ -1,0 +1,200 @@
+{% extends "staffbase.html" %}
+{% load static %}
+
+{% block content %}
+{% if user.is_superuser %}
+
+	<div class="page-wrapper">
+		<!-- start header -->
+		{% include 'includes/pageheader.html' %}
+		<!-- end header -->
+		<!-- start color quick setting -->
+		{% include 'includes/quicksettings.html' %}
+		<!-- end color quick setting -->
+		<!-- start page container -->
+		<div class="page-container">
+			<!-- start sidebar menu -->
+			{% include 'includes/sidebar.html' %}
+
+{% else %}
+
+		<div class="page-wrapper">
+		<!-- start header -->
+		{% include 'teacherutils/header.html' %}
+		<!-- end header -->
+		<!-- start color quick setting -->
+		{% include 'teacherutils/quicksettings.html' %}
+		<!-- end color quick setting -->
+		<!-- start page container -->
+		<div class="page-container">
+			<!-- start sidebar menu -->
+			{% include 'teacherutils/sidenav.html' %}
+{% endif %}
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <div class="page-bar">
+                    <div class="page-title-breadcrumb">
+                        <div class=" pull-left">
+                            <div class="page-title">Teachers List</div>
+                        </div>
+                        <ol class="breadcrumb page-breadcrumb pull-right">
+                            <li><i class="material-icons">home</i>&nbsp;<a class="parent-item"
+                                    href="{% url 'teachers:teacher_profile' %}">Home</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                            </li>
+                            <li><a class="parent-item" href="">Teacher</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                            </li>
+                            <li class="active">Teachers List</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tabbable-line">
+                            <ul class="nav customtab nav-tabs" role="tablist">
+                                <li class="nav-item"><a href="#tab1" class="nav-link active" data-toggle="tab">List
+                                        View</a></li>
+                                <li class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">Grid
+                                        View</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active fontawesome-demo" id="tab1">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card card-box">
+                                                <div class="card-head">
+                                                    <header>All Teachers</header>
+                                                    <div class="tools">
+                                                        <a class="btn-color box-refresh" href="javascript:;">
+                                                            <i class="material-icons text-primary">refresh</i>
+                                                        </a>
+                                                        <a class="t-collapse btn-color" href="javascript:;">
+                                                            <i class="material-icons text-info">remove</i>
+                                                        </a>
+                                                        <a class="t-close btn-color" href="javascript:;">
+                                                            <i class="material-icons text-danger">delete</i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body ">
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-sm-6 col-6">
+                                                            <div class="btn-group">
+                                                                {% if messages %}
+                                                                    {% for  message in messages %}
+                                                                        <div class="alert alert-{{message.tags}}">
+                                                                            {{message}}
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6 col-6">
+                                                            <div class="btn-group pull-right">
+                                                                <a class="btn deepPink-bgcolor  btn-outline dropdown-toggle"
+                                                                    data-toggle="dropdown">Tools
+                                                                    <i class="material-icons">print</i>
+                                                                </a>
+                                                                <ul class="dropdown-menu pull-right">
+                                                                    <li>
+                                                                        <a href="javascript:;">
+                                                                            <i class="material-icons">print</i> Print </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="table-scrollable">
+                                                        <table
+                                                            class="table table-striped table-bordered table-hover table-checkable order-column valign-middle"
+                                                            id="example4">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th> Name </th>
+                                                                    <th> Id Number </th>
+                                                                    <th> Designation </th>
+                                                                    <th>Educational Status</th>
+                                                                    <th> Mobile </th>
+                                                                    <th>Joining Date</th>
+                                                                    <th> Action </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for profile in TeachersProfileAttrib_qs %}
+                                                                <tr class="odd gradeX">
+                                                                    <td class="patient-img">
+                                                                        <img src="/teacher{{profile.profile_photo.url}}" alt="">
+                                                                    </td>
+                                                                    <td>{{profile.teacher.first_name}} {{profile.teacher.last_name}}</td>
+                                                                    <td class="left">{{profile.teacher.id_number}}</td>
+                                                                    <td class="left">{{profile.designation.desg_name}}</td>
+                                                                    <td class="left">{{profile.educational_status}}</td>
+                                                                    <td>{{profile.mobile_number}}</td>
+                                                                    <td class="left">{{profile.joined_date}}</td>
+                                                                    <td>
+                                                                        {% comment %} <a href="{% url 'teachers:edit_teachers' profile.id  %}"
+                                                                            class="btn btn-primary btn-xs">
+                                                                            <i class="material-icons">mode_edit</i>
+                                                                        </a>
+                                                                        <form action="{% url 'teachers:delete_teachers' %}" method="post">
+                                                                            {% csrf_token %}
+                                                                            <input type="hidden" name="id" value="{{profile.id}}">
+                                                                            <button type="submit" class="btn btn-danger btn-xs">
+                                                                                <i class="material-icons">delete</i>
+                                                                            </button>
+                                                                        </form>
+                                                                    </td> {% endcomment %}
+                                                                </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab2">
+                                    <div class="row">
+                                        {% for profile in teacherprofile %}
+                                        <div class="col-md-4">
+                                            <div class="card card-box">
+                                                <div class="card-body no-padding ">
+                                                    <div class="doctor-profile">
+                                                        <img style="width: 60% !important; height: 60% !important; border-radius: 50% !important;" src="/oauth{{profile.profile_photo.url}}" class="doctor-pic"
+                                                            alt="">
+                                                        <div class="profile-usertitle">
+                                                            <div class="doctor-name">{{profile.first_name}} {{profile.last_name}} </div>
+                                                            <div class="name-center"> {{profile.department}} </div>
+                                                        </div>
+                                                        <p>{{profile.education}}</p>
+                                                        <div>
+                                                            <p>
+                                                                <i class="material-icons">phone</i>
+                                                                {{profile.mobile_number}}</a>
+                                                            </p>
+                                                        </div>
+                                                        <div class="profile-userbuttons">
+                                                            <a href="{% url 'stuff_detail' profile.id %}"
+                                                                class="btn btn-circle deepPink-bgcolor btn-sm">Read
+                                                                More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page content -->
+        {% comment %} {% include 'util/chat_sidebar.html' %} {% endcomment %}
+    </div>
+    <!-- end page container -->
+</div>
+{% endblock %}

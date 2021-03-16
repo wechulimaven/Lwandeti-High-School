@@ -1,0 +1,200 @@
+{% extends "staffbase.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if user.is_superuser %}
+
+	<div class="page-wrapper">
+		<!-- start header -->
+		{% include 'includes/sidebar.html' %}
+		<!-- end header -->
+		<!-- start color quick setting -->
+		{% include 'includes/quicksettings.html' %}
+		<!-- end color quick setting -->
+		<!-- start page container -->
+		<div class="page-container">
+			<!-- start sidebar menu -->
+			{% include 'includes/sidebar.html' %}
+
+{% else %}
+
+		<div class="page-wrapper">
+		<!-- start header -->
+		{% include 'teacherutils/header.html' %}
+		<!-- end header -->
+		<!-- start color quick setting -->
+		{% include 'teacherutils/quicksettings.html' %}
+		<!-- end color quick setting -->
+		<!-- start page container -->
+		<div class="page-container">
+			<!-- start sidebar menu -->
+			{% include 'teacherutils/sidenav.html' %}
+{% endif %}
+
+
+    <div class="page-content-wrapper">
+        <div class="page-content container mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box">
+                        <h3><b>CARD S/NO: {{exam_card_number}}</b> <span class="pull-right"></span></h3>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12 mb-2 p-4">
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4 text">
+                                        <p class="text-center addr-font-h3">
+                                            Lwandeti Sec School
+                                        </p>
+                                        <p class="text-center">
+                                            <img src="{% static 'img/logo.png' %}" alt="logo" class="logo-default" />
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 text">
+                                        <p class="text-center text-muted">
+                                            Your Subjects
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="pull-left col-md-4">
+                                        <address>
+                                            <p class="text-muted m-l-5">SCHOOL: {{profile_attr.department.school}}</p>
+                                            <p class="text-muted m-l-5">PROGRAMME: {{programs.name}}</p>
+                                            <p class="text-muted m-l-5">ACADEMIC YEAR: {{profile_attr.accademic_year}}</p>
+                                            <p class="text-muted m-l-5">YEAR OF STUDY: {{profile_attr.year_of_study}}</p>
+                                            <p class="text-muted m-l-5">ADMISSION NUMBER: {{user.studentprofile.adm_number}}</p>
+                                        </address>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="profile-userpic">
+                                            <img src="{{profile_attr.picture.url}}" class="img-responsive" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="pull-right text-right col-md-4">
+                                        <address>
+                                            <p class="addr-font-h2">SESSION: {{profile_attr.student_session}}</p>
+                                            <p class="font-bold addr-font-h2">STUDY METHOD: {{profile_attr.study_method}}</p>
+                                            <p class="text-muted m-l-30">NAME: {{user.studentprofile.first_name}} {{user.studentprofile.surname}} {{user.studentprofile.last_name}}
+                                            </p>
+                                        </address>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-5">
+                                <div class="table-responsive m-t-40">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left">COURSE CODE :COURSE NAME</th>
+                                                <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th class="text-right">BOOKLET SERIAL N0.</th>
+                                                <th class="text-right">SIGNATURE (LECTURER / INVIGILATOR)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% comment %} {% for subjects in studentsubject_qs %}
+                                                <tr class="odd">
+                                                <td class="patient-img">
+                                                    <img src="/staff{{student.student_photo.url}}" alt="">
+                                                </td>
+													<td>{{subjects.student.first_name}}  {{subject.student.last_name}}</td>
+													<td>{{subjects.subjects.subject_code}}</td>
+													<td>{{subjects.subjects.subject_name}}</td>
+													<td>{{subjects.student.form_name}}</td>
+													
+												</tr>
+                                        {% endfor %} {% endcomment %}
+                                            
+                                            {% for subjects in studentsubject_qs %}
+                                                <tr>
+                                                    <td class="text-left">{{unit.unit}}</td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    </td>
+                                                    <td class="text-right"></td>
+                                                    <td class="text-right"></td>
+                                                </tr>
+                                            {% endfor %}
+                                                
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">
+                                        <p class="text-center img-responsive" style="height: 10rem; margin-left: 28%;">
+                                            {% comment %} {% qr_from_text my_options size="t" image_format="png" error_correction="L"  %} {% endcomment %}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="pull-left m-t-30 text-right">
+                                    <p class="text-center"></p>
+                                    <hr>
+                                    <p>STUDENT SIGNATURE</p>
+                                </div>
+                                <div class="pull-right m-t-30 text-right">
+                                    <p class="text-center">
+                                    </p>
+                                    <hr>
+                                    <p>DEAN'S SIGNATURE & STAMP</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">
+                                        <p class="text-center"></p>
+                                        <hr>
+                                        <p>DEPUTY REGISTRAR'S SIGNATURE</p>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <h3 class="text-center">INSRTUCTIONS</h3>
+                                        <p class="text-muted m-l-5">I. THIS CARD SHOULD BE PRINTED ON A WHITE PAPER.</p>
+                                        <p class="text-muted m-l-5">II. THIS CARD IS NOT TRANSFARABLE NOR IS REPLACEABLE.</p>
+                                        <p class="text-muted m-l-5">II. IT MUST BE PRODUCEDD TOGETHER WITH YOUR STUDENT IDENTIFICATION CARD TO THE INVIGILATOR WHEN REQUIRED AT EACH EXAMINATION SITTING.</p>
+                                        <p class="text-muted m-l-5">IV. THE INVIGILATOR MUST SIGN THIS CARD AS SHE OR SHE COLLECTS YOUR EXAM SCRIPTS.</p>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <hr>
+                                <div class="text-right">
+                                    <button onclick="javascript:window.print();" class="btn btn-primary btn-outline"
+                                        type="button"><i class="material-icons">print</i> Print</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- end page content -->
+<!-- start chat sidebar -->
+{% comment %} {% include 'studentutils/settings.html' %} {% endcomment %}
+<!-- end chat sidebar -->
+</div>
+<!-- end page container -->
+{% endblock %}

@@ -1,0 +1,240 @@
+{% load static %}
+<!-- start sidebar menu -->
+<div class="sidebar-container">
+    <div class="sidemenu-container navbar-collapse collapse fixed-menu">
+        <div id="remove-scroll" class="left-sidemenu">
+            <ul class="sidemenu  page-header-fixed slimscroll-style" data-keep-expanded="false" data-auto-scroll="true"
+                data-slide-speed="200" style="padding-top: 20px">
+                <li class="sidebar-toggler-wrapper hide">
+                    <div class="sidebar-toggler">
+                        <span></span>
+                    </div>
+                </li>
+                <li class="sidebar-user-panel">
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="{{profile_attr.picture.url}}" class="img-circle user-img-circle" alt="User Image" />
+                        </div>
+                        <div class="pull-left info">
+                            <p> {{user.teacherprofile.first_name}} {{user.teacherprofile.last_name}}</p>
+                            <a href="#">
+                                <i class="material-icons green-text">adjust</i>
+                                <span class="txtOnline">Online</span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item start active open">
+                        <a href="#" class="nav-link nav-toggle">
+                            <i class="material-icons">apps</i>
+                            <span class="title">Activities</span>
+                            <span class="selected"></span>
+                            <i class="material-icons open">arrow_drop_down</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item active">
+                                <a href="{% url 'teachers:teacher_profile' %}" class="nav-link">
+                                    <i class="material-icons">apps</i>
+                                    <span class="title">Dashboard</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{%url 'staff:all_students' %}" class="nav-link ">
+                                    <i class="material-icons">dashboard</i>
+                                    <span class="title">All Students</span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{%url 'staff:all_students' %}"class="nav-link ">
+                                    <i class="material-icons">dashboard</i>
+                                    <span class="title">My Students</span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{%url 'teachers:add_student_subject' %}" class="nav-link ">
+                                    <i class="material-icons">dashboard</i>
+                                    <span class="title">My Students Subjects</span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{%url 'teachers:students_attributes' %}" class="nav-link ">
+                                    <i class="material-icons">dashboard</i>
+                                    <span class="title">Student Profile</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <li class="nav-item start">
+                    <a href="#" class="nav-link nav-toggle">
+                        <i class="material-icons">person</i>
+                        <span class="title">Profile</span>
+                        <span class="selected"></span>
+                        <i class="material-icons open">arrow_drop_down</i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item ">
+                            <a href="{% url 'teachers:stuff_profile' %}" class="nav-link ">
+                                <i class="material-icons">person</i>
+                                <span class="title">My Profile</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'teachers:teachers_profile_attribute' %}" class="nav-link">
+                                <i class="material-icons">mode_edit</i>
+                                <span class="title">Create Profile</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link ">
+                                <i class="material-icons">add</i>
+                                <span class="title">Add Class Subjects</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <li class="nav-item">
+                    <a href="#" class="nav-link nav-toggle"> <i class="material-icons">school</i>
+                        <span class="title">Subjects</span> <i class="material-icons">arrow_drop_down</i>
+                        <span class="label label-rouded label-menu label-success">new</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link "> <span class="title">All
+                                    Courses</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link "> <span class="title">Add
+                                    Course</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link nav-toggle"> <i class="material-icons">local_library</i>
+                        <span class="title">Library</span> <i class="material-icons">arrow_drop_down</i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link "> <span class="title">All Library
+                                    Assets</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link "> <span class="title">Add Library
+                                    Asset</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="edit_library.html" class="nav-link "> <span class="title">Edit
+                                    Asset</span>
+                            </a>
+                        </li>
+     
+                    <li class="nav-item">
+                    <a href="#" class="nav-link nav-toggle"><i class="material-icons">group</i>
+                        <span class="title">Student Exams</span><i class="material-icons">arrow_drop_down</i></a>
+                    <ul class="sub-menu">
+                        <li class="nav-item">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="material-icons medium">insert_chart</i> Exam Entry
+                                <i class="material-icons">arrow_drop_down</i>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a href="javascript:;" class="nav-link nav-toggle">
+                                        <i class="material-icons">picture_as_pdf</i> Form One
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li class="nav-item">
+                                            <a href="exam_entry.html" class="nav-link">
+                                                <i class="material-icons">apps</i> Term One</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="exam_entry.html" class="nav-link">
+                                                <i class="material-icons">apps</i> Term Two</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="exam_entry.html" class="nav-link">
+                                                <i class="material-icons">apps</i> Term Three</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:;" class="nav-link nav-toggle">
+                                        <i class="material-icons">picture_as_pdf</i> Form Two
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li class="nav-item">
+                                            <a href="exam_entry.html" class="nav-link">
+                                                <i class="material-icons">apps</i> Term One</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="exam_entry.html" class="nav-link">
+                                                <i class="material-icons">apps</i> Term Two</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="exam_entry.html" class="nav-link">
+                                                <i class="material-icons">apps</i> Term Three</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:;" class="nav-link nav-toggle">
+                                        <i class="material-icons">picture_as_pdf</i> Form Three
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li class="nav-item">
+                                            <a href="exam_entry.html" class="nav-link">
+                                                <i class="material-icons">apps</i> Term One</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="exam_entry.html" class="nav-link">
+                                                <i class="material-icons">apps</i> Term Two</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="exam_entry.html" class="nav-link">
+                                                <i class="material-icons">apps</i> Term Three</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:;" class="nav-link nav-toggle">
+                                        <i class="material-icons">picture_as_pdf</i> Form Four
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li class="nav-item">
+                                            <a href="exam_entry.html" class="nav-link">
+                                                <i class="material-icons">apps</i> Term One</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="exam_entry.html" class="nav-link">
+                                                <i class="material-icons">apps</i> Term Two</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="exam_entry.html" class="nav-link">
+                                                <i class="material-icons">apps</i> Term Three</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="all_results.html" class="nav-link nav-toggle">
+                                <i class="material-icons">filter_list</i> Exam Results
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- end sidebar menu -->

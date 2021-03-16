@@ -1,0 +1,489 @@
+{% extends "util/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="page-wrapper">
+    <!-- start header -->
+    {% include 'util/navbar.html' %}
+    <!-- end header -->
+    <!-- start color quick setting -->
+    {% include 'util/startcolorquicksetting.html' %}
+    <!-- end color quick setting -->
+    <!-- start page container -->
+    <div class="page-container">
+        <!-- start sidebar menu -->
+        {% include 'util/sidebarmenu.html' %}
+        <!-- end sidebar menu -->
+        <!-- start page content -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <div class="page-bar">
+                    <div class="page-title-breadcrumb">
+                        <div class=" pull-left">
+                            <div class="page-title">Student Details</div>
+                        </div>
+                        <ol class="breadcrumb page-breadcrumb pull-right">
+                            <li><i class="material-icons">home</i>&nbsp;<a class="parent-item"
+                                    href="#">Home</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                            </li>
+                            <li><a class="parent-item" href="">Subject</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                            </li>
+                            <li class="active">Student Details</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN PROFILE SIDEBAR -->
+                        <div class="profile-sidebar">
+                            <div class="card card-topline-aqua">
+                                <div class="card-body no-padding height-9">
+                                    <div class="row">
+                                        <div class="course-picture">
+                                            <img src="/staff{{profile_attr.student.student_photo.url}}" class="img-responsive"
+                                                alt={{studentprofileattribute.student.first_name}}> </div>
+                                    </div>
+                                    <div class="profile-usertitle">
+                                        <div class="profile-usertitle-name"> {{profile_attr.student.first_name}} {{profile_attr.student.last_name}} </div>
+                                    </div>
+                                    <!-- END SIDEBAR USER TITLE -->
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-head card-topline-aqua">
+                                    <header>About </header>
+                                </div>
+                                <div class="card-body no-padding height-9">
+                                    <div class="profile-desc">
+                                        {{profile_attr.session|linebreaksbr}}
+                                    </div>
+                                    <ul class="list-group list-group-unbordered">
+                                        <li class="list-group-item">
+                                            <b>Duration </b>
+                                            <div class="profile-desc-item pull-right">{{profile_attr.session}}</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>Year</b>
+                                            <div class="profile-desc-item pull-right">{{profile_attr.year}}</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>ClassTeacher </b>
+                                            <div class="profile-desc-item pull-right">{{profile_attr.classteacher.user}}</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>Class</b>
+                                            <div class="profile-desc-item pull-right">{{profile_attr.formclass}}</div>
+                                        </li>
+                                        
+                                    </ul>
+                                    <div class="row list-separated profile-stat">
+                                        <div class="col-md-6 col-sm-6 col-6">
+                                            <div class="uppercase profile-stat-title">{{profile_attr.student.first_name}} </div>
+                                            <div class="uppercase profile-stat-text">  </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-6">
+                                            <div class="uppercase profile-stat-title"> {{profile_attr.student.profile_attr.student_students_number}} </div>
+                                            <div class="uppercase profile-stat-text"> Students </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END BEGIN PROFILE SIDEBAR -->
+                        <!-- BEGIN PROFILE CONTENT -->
+                        <div class="profile-content">
+                            <div class="row">
+                                <div class="card">
+                                    <div class="card-topline-aqua">
+                                        <header></header>
+                                    </div>
+                                    <div class="white-box">
+                                        <!-- Nav tabs -->
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                              <div id="panel-button"
+                                            class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                            data-upgraded=",MaterialButton">
+                                            <i class="material-icons">more_vert</i>
+                                        </div>
+                                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                            data-mdl-for="panel-button">
+                                            <li class="mdl-menu__item"><i
+                                                    class="material-icons">assistant_photo</i>Action
+                                            </li>
+                                            <li class="mdl-menu__item"><i class="material-icons">print</i>Another action
+                                            </li>
+                                            <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something
+                                                else
+                                                here</li>
+                                        </ul>
+                                            <div class="tab-pane active fontawesome-demo">
+                                                <div id="biography">
+                                                    <p></p>
+                                                    <br>
+                                                    <h4 class="font-bold">{{profile_attr.student.first_name|linebreaksbr}}'s subjects</h4>
+                                                    <hr>
+                                                    <ul>
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">Subject Name</th>
+                                                                <th scope="col">Subject Code</th>
+                                                                <th scope="col">Subject Class</th>
+													            <th class="text-danger ml-5"> Delete</th>
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for content in studentsubject_qs %}
+                                                            <tr>
+                                                                <th scope="row">{{ forloop.counter }}</th>
+                                                                <td>{{content.subjects.subject_name}}</td>
+                                                                <td>{{content.subjects.subject_code}}</td>
+                                                                <td>{{content.subjects.formclass.form_name}}</td>
+                                                            {% empty %}
+                                                            <tr>
+                                                                <td colspan='5'>No registered Subject</td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </ul>
+                                                    <br>
+                                                    <ul>
+                                                        <form action="{% url 'teachers:register_student_subject' profile_attr.id %}" method="POST">
+                                                            {% csrf_token %}
+                                                            <div class="card-box">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="card-head">
+                                                                            <header>Add Subject</header>
+                                                                        </div>
+                                                                        <div class="card-body row">
+                                                                            <div class="col-lg-12 p-t-20">
+                                                                            <input hidden name="student" value="{{student.id}}">
+                                                                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                                                                    <label class="mdl-textfield__label">Subject Name</label>
+                                                                                    <select name="subject" class="mdl-textfield__input" id="subject">
+                                                                                        {% for subject in subjects %}
+                                                                                        <option class="form-control" value="{{subject.id}}">{{subject.subject_name}}</option>
+                                                                                        {% endfor %}
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                        <div class="col-lg-12 p-t-20 text-center">
+                                                                                <button type="submit"
+                                                                                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-primary">
+                                                                                    Save <i class="material-icons">save</i>
+                                                                                </button>
+                                                                                <button type="reset"
+                                                                                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Cancel</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </form>
+                                                    </ul> 
+                                                    <br>
+                                                    
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END PROFILE CONTENT -->
+                    </div>
+                
+                </div>
+            </div>
+            <!-- end page content -->
+            <!-- start chat sidebar -->
+            <div class="chat-sidebar-container" data-close-on-body-click="false">
+                <div class="chat-sidebar">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a href="#quick_sidebar_tab_1" class="nav-link active tab-icon" data-toggle="tab"> <i
+                                    class="material-icons">chat</i>Chat
+                                <span class="badge badge-danger">4</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#quick_sidebar_tab_3" class="nav-link tab-icon" data-toggle="tab"> <i
+                                    class="material-icons">settings</i>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <!-- Start User Chat -->
+                        <div class="tab-pane active chat-sidebar-chat in active show" role="tabpanel"
+                            id="quick_sidebar_tab_1">
+                            <div class="chat-sidebar-list">
+                                <div class="chat-sidebar-chat-users slimscroll-style" data-rail-color="#ddd"
+                                    data-wrapper-class="chat-sidebar-list">
+                                    <div class="chat-header">
+                                        <h5 class="list-heading">Online</h5>
+                                    </div>
+                                    <ul class="media-list list-items">
+                                        <li class="media"><img class="media-object"
+                                                src="img/prof/prof3.jpg" width="35" height="35" alt="...">
+                                            <i class="online dot"></i>
+                                            <div class="media-body">
+                                                <h5 class="media-heading">John Deo</h5>
+                                                <div class="media-heading-sub">Spine Surgeon</div>
+                                            </div>
+                                        </li>
+                                        <li class="media">
+                                            <div class="media-status">
+                                                <span class="badge badge-success">5</span>
+                                            </div> <img class="media-object" src="img/prof/prof1.jpg"
+                                                width="35" height="35" alt="...">
+                                            <i class="busy dot"></i>
+                                            <div class="media-body">
+                                                <h5 class="media-heading">Rajesh</h5>
+                                                <div class="media-heading-sub">Director</div>
+                                            </div>
+                                        </li>
+                                        <li class="media"><img class="media-object"
+                                                src="img/prof/prof5.jpg" width="35" height="35" alt="...">
+                                            <i class="away dot"></i>
+                                            <div class="media-body">
+                                                <h5 class="media-heading">Jacob Ryan</h5>
+                                                <div class="media-heading-sub">Ortho Surgeon</div>
+                                            </div>
+                                        </li>
+                                        <li class="media">
+                                            <div class="media-status">
+                                                <span class="badge badge-danger">8</span>
+                                            </div> <img class="media-object" src="img/prof/prof4.jpg"
+                                                width="35" height="35" alt="...">
+                                            <i class="online dot"></i>
+                                            <div class="media-body">
+                                                <h5 class="media-heading">Kehn Anderson</h5>
+                                                <div class="media-heading-sub">CEO</div>
+                                            </div>
+                                        </li>
+                                        <li class="media"><img class="media-object"
+                                                src="img/prof/prof2.jpg" width="35" height="35" alt="...">
+                                            <i class="busy dot"></i>
+                                            <div class="media-body">
+                                                <h5 class="media-heading">Sarah Smith</h5>
+                                                <div class="media-heading-sub">Anaesthetics</div>
+                                            </div>
+                                        </li>
+                                        <li class="media"><img class="media-object"
+                                                src="img/prof/prof7.jpg" width="35" height="35" alt="...">
+                                            <i class="online dot"></i>
+                                            <div class="media-body">
+                                                <h5 class="media-heading">Vlad Cardella</h5>
+                                                <div class="media-heading-sub">Cardiologist</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="chat-header">
+                                        <h5 class="list-heading">Offline</h5>
+                                    </div>
+                                    <ul class="media-list list-items">
+                                        <li class="media">
+                                            <div class="media-status">
+                                                <span class="badge badge-warning">4</span>
+                                            </div> <img class="media-object" src="img/prof/prof6.jpg"
+                                                width="35" height="35" alt="...">
+                                            <i class="offline dot"></i>
+                                            <div class="media-body">
+                                                <h5 class="media-heading">Jennifer Maklen</h5>
+                                                <div class="media-heading-sub">Nurse</div>
+                                                <div class="media-heading-small">Last seen 01:20 AM</div>
+                                            </div>
+                                        </li>
+                                        <li class="media"><img class="media-object"
+                                                src="img/prof/prof8.jpg" width="35" height="35" alt="...">
+                                            <i class="offline dot"></i>
+                                            <div class="media-body">
+                                                <h5 class="media-heading">Lina Smith</h5>
+                                                <div class="media-heading-sub">Ortho Surgeon</div>
+                                                <div class="media-heading-small">Last seen 11:14 PM</div>
+                                            </div>
+                                        </li>
+                                        <li class="media">
+                                            <div class="media-status">
+                                                <span class="badge badge-success">9</span>
+                                            </div> <img class="media-object" src="img/prof/prof9.jpg"
+                                                width="35" height="35" alt="...">
+                                            <i class="offline dot"></i>
+                                            <div class="media-body">
+                                                <h5 class="media-heading">Jeff Adam</h5>
+                                                <div class="media-heading-sub">Compounder</div>
+                                                <div class="media-heading-small">Last seen 3:31 PM</div>
+                                            </div>
+                                        </li>
+                                        <li class="media"><img class="media-object"
+                                                src="img/prof/prof10.jpg" width="35" height="35"
+                                                alt="...">
+                                            <i class="offline dot"></i>
+                                            <div class="media-body">
+                                                <h5 class="media-heading">Anjelina Cardella</h5>
+                                                <div class="media-heading-sub">Physiotherapist</div>
+                                                <div class="media-heading-small">Last seen 7:45 PM</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End User Chat -->
+                        <!-- Start Setting Panel -->
+                        <div class="tab-pane chat-sidebar-settings" role="tabpanel" id="quick_sidebar_tab_3">
+                            <div class="chat-sidebar-settings-list slimscroll-style">
+                                <div class="chat-header">
+                                    <h5 class="list-heading">Layout Settings</h5>
+                                </div>
+                                <div class="chatpane inner-content ">
+                                    <div class="settings-list">
+                                        <div class="setting-item">
+                                            <div class="setting-text">Sidebar Position</div>
+                                            <div class="setting-set">
+                                                <select
+                                                    class="sidebar-pos-option form-control input-inline input-sm input-small ">
+                                                    <option value="left" selected="selected">Left</option>
+                                                    <option value="right">Right</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="setting-item">
+                                            <div class="setting-text">Header</div>
+                                            <div class="setting-set">
+                                                <select
+                                                    class="page-header-option form-control input-inline input-sm input-small ">
+                                                    <option value="fixed" selected="selected">Fixed</option>
+                                                    <option value="default">Default</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="setting-item">
+                                            <div class="setting-text">Footer</div>
+                                            <div class="setting-set">
+                                                <select
+                                                    class="page-footer-option form-control input-inline input-sm input-small ">
+                                                    <option value="fixed">Fixed</option>
+                                                    <option value="default" selected="selected">Default</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chat-header">
+                                        <h5 class="list-heading">Account Settings</h5>
+                                    </div>
+                                    <div class="settings-list">
+                                        <div class="setting-item">
+                                            <div class="setting-text">Notifications</div>
+                                            <div class="setting-set">
+                                                <div class="switch">
+                                                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                                                        for="switch-1">
+                                                        <input type="checkbox" id="switch-1"
+                                                            class="mdl-switch__input" checked>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="setting-item">
+                                            <div class="setting-text">Show Online</div>
+                                            <div class="setting-set">
+                                                <div class="switch">
+                                                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                                                        for="switch-7">
+                                                        <input type="checkbox" id="switch-7"
+                                                            class="mdl-switch__input" checked>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="setting-item">
+                                            <div class="setting-text">Status</div>
+                                            <div class="setting-set">
+                                                <div class="switch">
+                                                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                                                        for="switch-2">
+                                                        <input type="checkbox" id="switch-2"
+                                                            class="mdl-switch__input" checked>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="setting-item">
+                                            <div class="setting-text">2 Steps Verification</div>
+                                            <div class="setting-set">
+                                                <div class="switch">
+                                                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                                                        for="switch-3">
+                                                        <input type="checkbox" id="switch-3"
+                                                            class="mdl-switch__input" checked>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chat-header">
+                                        <h5 class="list-heading">General Settings</h5>
+                                    </div>
+                                    <div class="settings-list">
+                                        <div class="setting-item">
+                                            <div class="setting-text">Location</div>
+                                            <div class="setting-set">
+                                                <div class="switch">
+                                                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                                                        for="switch-4">
+                                                        <input type="checkbox" id="switch-4"
+                                                            class="mdl-switch__input" checked>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="setting-item">
+                                            <div class="setting-text">Save Histry</div>
+                                            <div class="setting-set">
+                                                <div class="switch">
+                                                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                                                        for="switch-5">
+                                                        <input type="checkbox" id="switch-5"
+                                                            class="mdl-switch__input" checked>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="setting-item">
+                                            <div class="setting-text">Auto Updates</div>
+                                            <div class="setting-set">
+                                                <div class="switch">
+                                                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                                                        for="switch-6">
+                                                        <input type="checkbox" id="switch-6"
+                                                            class="mdl-switch__input" checked>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end chat sidebar -->
+        </div>
+        <!-- end page content -->
+        {% include 'util/chat_sidebar.html' %}
+    </div>
+    <!-- end page container -->
+</div>
+{% endblock %}

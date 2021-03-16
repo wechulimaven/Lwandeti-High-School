@@ -1,0 +1,192 @@
+{% extends "util/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="page-wrapper">
+    <!-- start header -->
+     {% include 'util/navbar.html' %}
+    <!-- end header -->
+    <!-- start color quick setting -->
+    {% include 'includes/quicksettings.html' %}
+    <!-- end color quick setting -->
+    <!-- start page container -->
+    <div class="page-container">
+        <!-- start sidebar menu -->
+        {% include 'includes/sidebar.html' %}
+        <!-- end sidebar menu -->
+        <!-- start page content -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <div class="page-bar">
+                    <div class="page-title-breadcrumb">
+                        <div class=" pull-left">
+                            <div class="page-title">Add Library Assets</div>
+                        </div>
+                        <ol class="breadcrumb page-breadcrumb pull-right">
+                            <li><i class="material-icons">home</i>&nbsp;<a class="parent-item"
+                                    href="">Home</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                            </li>
+                            <li><a class="parent-item" href="">Library</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                            </li>
+                            <li class="active">Add Library Assets</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box">
+                            <div class="card-head">
+                                <header>Add Library Assets</header>
+                                {% if messages %}
+                                    {% for  message in messages %}
+                                        <div class="alert alert-{{message.tags}}">
+                                            {{message}}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <button id="panel-button"
+                                    class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                    data-upgraded=",MaterialButton">
+                                    <i class="material-icons">more_vert</i>
+                                </button>
+                                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                    data-mdl-for="panel-button">
+                                    <li class="mdl-menu__item"><i class="material-icons">assistant_photo</i>Action
+                                    </li>
+                                    <li class="mdl-menu__item"><i class="material-icons">print</i>Another action
+                                    </li>
+                                    <li class="mdl-menu__item"><i class="material-icons">favorite</i>Something else
+                                        here</li>
+                                </ul>
+                            </div>
+                            <form action="{% url 'staff:add_asset' %}" method="POST">
+                            {% csrf_token %}
+                            
+                                <div class="card-body row">
+                                    <div class="col-lg-4 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                            {{lib_form.title}}
+                                            <label class="mdl-textfield__label">Title</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                            {{lib_form.author_name}}
+                                            <label class="mdl-textfield__label">Auther Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                            {{lib_form.publisher}}
+                                            <label class="mdl-textfield__label">Publisher</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-3 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+                                            <input class="mdl-textfield__input" name="subject" type="text" id="list2" value="" readonly
+                                                tabIndex="-1">
+                                            <label for="list2" class="pull-right margin-0">
+                                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                            </label>
+                                            <label for="list2" class="mdl-textfield__label">Subject</label>
+                                            <ul data-mdl-for="list2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                                {% for subject in subject_qs %}
+                                                    <li class="mdl-menu__item" data-val="DE">{{subject.subject_name}}:{{subject.subject_class}}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+                                            <input class="mdl-textfield__input"  name="department" type="text" id="list5" value="" readonly
+                                                tabIndex="-1">
+                                            <label for="list2" class="pull-right margin-0">
+                                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                            </label>
+                                            <label for="list2" class="mdl-textfield__label">Department</label>
+                                            <ul data-mdl-for="list5" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                                {% for dept in dept_qs %}
+                                                    <li class="mdl-menu__item" data-val="DE">{{dept.department_name}}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+                                            <input class="mdl-textfield__input"  name="asset_type" type="text" id="list3" value="" readonly
+                                                tabIndex="-1">
+                                            <label for="list2" class="pull-right margin-0">
+                                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                            </label>
+                                            <label for="list2" class="mdl-textfield__label">Asset Type</label>
+                                            <ul data-mdl-for="list3" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                                <li class="mdl-menu__item" data-val="DE">Book</li>
+                                                <li class="mdl-menu__item" data-val="BY">CD</li>
+                                                <li class="mdl-menu__item" data-val="BY">DVD</li>
+                                                <li class="mdl-menu__item" data-val="BY">NewsPaper</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+                                            <input class="mdl-textfield__input" name="status" type="text" id="list8" value="" readonly
+                                                tabIndex="-1">
+                                            <label for="list2" class="pull-right margin-0">
+                                                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                            </label>
+                                            <label for="list2" class="mdl-textfield__label">Status</label>
+                                            <ul data-mdl-for="list8" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                                <li class="mdl-menu__item" data-val="DE">In Stock</li>
+                                                <li class="mdl-menu__item" data-val="BY">Out Of Stock</li>
+                                                <li class="mdl-menu__item" data-val="BY">Issue</li>
+                                                <li class="mdl-menu__item" data-val="BY">Repair</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                            {{lib_form.purchase_date}}
+                                            <label class="mdl-textfield__label">Purchase Date</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 p-t-20">
+                                        <div
+                                            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label txt-full-width">
+                                            {{lib_form.price}}
+                                            <label class="mdl-textfield__label">Price</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 p-t-20">
+                                        <div class="mdl-textfield mdl-js-textfield txt-full-width">
+                                            {{lib_form.asset_details}}
+                                            <label class="mdl-textfield__label" for="text7">Assets Details</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 p-t-20 text-center">
+                                        <button type="submit"
+                                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink">Submit</button>
+                                        <button type="reset"
+                                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-default">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page content -->
+        {% include 'includes/chat_sidebar.html' %}
+    </div>
+    <!-- end page container -->
+</div>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'teachersbase.html' %}
+{% block content %}
+<!-- start page container -->
+<div class="page-container">
+    <!-- start sidebar menu -->
+    {% if user.is_superuser %}
+    {% include 'util/navbar.html' %}
+    <!-- end header -->
+    <!-- start color quick setting -->
+    {% include 'includes/quicksettings.html' %}
+    <!-- end color quick setting -->
+    <!-- start page container -->
+    {% comment %} <div class="page-container"> {% endcomment %}
+        <!-- start sidebar menu -->
+    {% include 'includes/sidebar.html' %}
+    {% else %}
+    {% include 'teacherutils/sidenav.html' %}
+    {% endif %}
+    <!-- end sidebar menu -->
+    <!-- start page content -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <div class="page-title-breadcrumb">
+                    <div class=" pull-left">
+                        <div class="page-title">Dashboard</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="material-icons">home</i>&nbsp;<a class="parent-item" href="{% url 'teachers:teacher_profile' %}">Home</a>&nbsp;<i
+                                class="material-icons">arrow_forward</i>
+                        </li>
+                        <li class="active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+            {% if messages %}
+                {% for  message in messages %}
+                <div class="alert alert-{{message.tags}}">
+                    {{message}}
+                </div>
+                {% endfor %}
+                {% endif %}
+            <!-- start widget -->
+            <div class="state-overview">
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 col-12">
+                        <div class="info-box bg-b-green">
+                            <span class="info-box-icon push-bottom"><i class="material-icons">list</i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">My Students Subjects</span>
+                                <span class="info-box-number">{{student_subjects}}</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 100%"></div>
+                                </div>
+                                <span class="progress-description">
+                                    {{student_subjects}} Of {{student_subjects}}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xl-3 col-md-6 col-12">
+                        <div class="info-box bg-b-yellow">
+                            <span class="info-box-icon push-bottom"><i class="material-icons">person</i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Year Of Study Level</span>
+                                <span class="info-box-number">{{profile_attr.year_of_study}}</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: {{year_percentage}}%"></div>
+                                </div>
+                                <span class="progress-description">
+                                    {{profile_attr.year_of_study}} of 4 Years
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xl-3 col-md-6 col-12">
+                        <div class="info-box bg-b-blue">
+                            <span class="info-box-icon push-bottom"><i class="material-icons">school</i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Units In Department   </span>
+                                <span class="info-box-number">{{units}}</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 100%"></div>
+                                </div>
+                                <span class="progress-description">
+                                    100% Of 100%
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xl-3 col-md-6 col-12">
+                        <div class="info-box bg-b-pink">
+                            <span class="info-box-icon push-bottom"><i class="material-icons">monetization_on</i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Fees Completion</span>
+                                <span class="info-box-number">True / False</span><span></span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 100%"></div>
+                                </div>
+                                <span class="progress-description">
+                                    100% Fees
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+            <!-- end widget -->
+
+        </div>
+    </div>
+    <!-- end page content -->
+    <!-- start chat sidebar -->
+    {% include 'teacherutils/settings.html' %}
+    <!-- end chat sidebar -->
+</div>
+<!-- end page container -->
+{% endblock %}

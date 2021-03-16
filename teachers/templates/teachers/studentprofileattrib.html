@@ -1,0 +1,90 @@
+{% extends "util/base.html" %}
+{% load static %}
+
+{% block content %}
+{% if user.is_superuser %}
+
+	<div class="page-wrapper">
+		<!-- start header -->
+		{% include 'includes/pageheader.html' %}
+		<!-- end header -->
+		<!-- start color quick setting -->
+		{% include 'includes/quicksettings.html' %}
+		<!-- end color quick setting -->
+		<!-- start page container -->
+		<div class="page-container">
+			<!-- start sidebar menu -->
+			{% include 'includes/sidebar.html' %}
+
+{% else %}
+
+		<div class="page-wrapper">
+		<!-- start header -->
+		{% include 'teacherutils/header.html' %}
+		<!-- end header -->
+		<!-- start color quick setting -->
+		{% include 'teacherutils/quicksettings.html' %}
+		<!-- end color quick setting -->
+		<!-- start page container -->
+		<div class="page-container">
+			<!-- start sidebar menu -->
+			{% include 'teacherutils/sidenav.html' %}
+{% endif %}
+       <div class="page-content-wrapper">
+            <div class="page-content">
+                <div class="page-bar">
+                    <div class="page-title-breadcrumb">
+                        <div class=" pull-left">
+                            <div class="page-title">Students Profile</div>
+                        </div>
+                        <ol class="breadcrumb page-breadcrumb pull-right">
+                            <li><i class="material-icons">home</i>&nbsp;<a class="parent-item"
+                                    href="#">Home</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                            </li>
+                            <li><a class="parent-item" href="">Teacher</a>&nbsp;<i class="material-icons">arrow_forward</i>
+                            </li>
+                            <li class="active">Students Profile</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card-box">
+                        <div class="card-head">
+                            <header>All Students Profile</header>
+                        </div>
+                        <div class="card-body ">
+                            <!-- start course list -->
+                            <div class="row">
+                                {% for students in attrib_qs %}
+                                <div class="col-lg-3 col-md-6 col-12 col-sm-6">
+                                    <div class="blogThumb">
+                                        <div class="thumb-center"><img style="width: 100%; height: 20%;" class="img-responsive" alt={{students.student.last_name}}
+                                                src="/staff{{students.student.student_photo.url}}"></div>
+                                        <div class="course-box">
+                                            <h4>NAME: {{students.student.first_name}} {{students.student.last_name}}</h4>
+                                            <div class="text-muted"><span class="m-r-10">Admission Number{{students.student.admission_number}}</span>
+                                                <a class="course-likes m-l-10" href="#"><i
+                                                        class="material-icons">favorite</i> {{students.student.form_name}}</a>
+                                            </div>
+                                            <p><span><i class="material-icons">alarm</i> SESSION:{{students.session}}</span></p>
+                                            <p><span><i class="material-icons">person</i>CLASSTEACHER: <span class="text-center">{{students.classteacher.user}}</span> </span></p>
+                                            <p><span><i class="material-icons">school</i> YEAR: {{students.year}}+</span></p>
+                                            <a href="{% url 'teachers:register_student_subject' students.id %}" type="button"
+                                                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 btn-info">Register {{students.student.first_name}}'s Subjects </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <!-- End course list -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page content -->
+        {% include 'util/chat_sidebar.html' %}
+    </div>
+    <!-- end page container -->
+</div>
+{% endblock %}
